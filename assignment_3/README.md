@@ -5,4 +5,10 @@ Bài tập gồm:
 
 # Nguyen Assignment:
 
-1. Lab giới thiệu Github Desktop [HERE](https://anhdang.gitbook.io/datacracy/atom/2-data-tools-1/2.3-lab-1-github-desktop)
+1. Python Ex01 Syntax_Variable_Numbers [HERE](https://github.com/ngttnguyen/atom-assignments/blob/main/assignment_3/NguyenThaoNguyen_Assigment3_Ex01_Syntax_Variable_Numbers.ipynb)
+2. Python Ex02 Functions and Getting Help [HERE](https://github.com/ngttnguyen/atom-assignments/blob/main/assignment_3/NguyenThaoNguyen_Assigment3_Ex02%20-%20Functions%20and%20Getting%20Help.ipynb)
+3. Python Ex03 Booleans and Conditionals [HERE](https://github.com/ngttnguyen/atom-assignments/blob/main/assignment_3/NguyenThaoNguyen_Assignment3_Ex03%20-%20Booleans%20and%20Conditionals.ipynb)
+4. Python Ex04 Lists [HERE](https://github.com/ngttnguyen/atom-assignments/blob/main/assignment_3/NguyenThaoNguyen_Assignment3_Exercises%2004%20-%20Lists.ipynb)
+5. Python Ex05 Loops and List Comprehensions[HERE](https://github.com/ngttnguyen/atom-assignments/blob/main/assignment_3/NguyenThaoNguyen_Assigment3_Exercises%2005%20-%20Loops%20and%20List%20Comprehensions.ipynb)
+6. Python Ex06 SStrings and Dictionaries [HERE](https://github.com/ngttnguyen/atom-assignments/blob/main/assignment_3/NguyenThaoNguyen_Assignment3_Exercises%2006%20-%20Strings%20and%20Dictionaries.ipynb)
+7. ASSIGNMENT3_SLACKAPI _TOGSHEET [HERE](https://github.com/ngttnguyen/atom-assignments/blob/main/assignment_3/NguyenThaoNguyen_ASSIGNMENT3_SLACKAPI%20_TOGSHEET.ipynb)

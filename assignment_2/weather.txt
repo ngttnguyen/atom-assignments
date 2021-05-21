@@ -1,0 +1,5 @@
+The Weather of London at (-0.1257,51.5085) today:
+Temperature: 285.88
+Humidity: 73
+Pressure: 999
+Weather Report: overcast clouds

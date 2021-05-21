@@ -13,6 +13,6 @@ Bài tập gồm:
 6. Python Ex06 SStrings and Dictionaries [HERE](https://github.com/ngttnguyen/atom-assignments/blob/main/assignment_3/NguyenThaoNguyen_Assignment3_Exercises%2006%20-%20Strings%20and%20Dictionaries.ipynb)
 7. ASSIGNMENT3_SLACKAPI _TOGSHEET [HERE](https://github.com/ngttnguyen/atom-assignments/blob/main/assignment_3/NguyenThaoNguyen_ASSIGNMENT3_SLACKAPI%20_TOGSHEET.ipynb)
 8. Google SpreadSheet to view data:
-	 Slack User Data [HERE](https://docs.google.com/spreadsheets/d/11oA0WUp-yJ3ZDSYhfXHtTfmN0svB9aVE8SlKqyYaTeU/edit?usp=sharing)
-	 Ai đã nộp bài[HERE](https://docs.google.com/spreadsheets/d/1ESgL9IIOUo82tNNm4ZQqpD_meJu-CXKHl4fo4lFfCcs/edit?usp=sharing)
+	 Slack User Data [HERE](https://docs.google.com/spreadsheets/d/11oA0WUp-yJ3ZDSYhfXHtTfmN0svB9aVE8SlKqyYaTeU/edit?usp=sharing),
+	 Ai đã nộp bài [HERE](https://docs.google.com/spreadsheets/d/1ESgL9IIOUo82tNNm4ZQqpD_meJu-CXKHl4fo4lFfCcs/edit?usp=sharing)
 	 

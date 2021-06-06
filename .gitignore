@@ -1,13 +1,4 @@
 env_variable.json
 diesel-post-314008-065a1771ca30.json
-assignment_4/ghi chu.docx
-assignment_4/DataBase.xlsx
-assignment_4/ChannelData.json
-assignment_4/message.csv
-assignment_4/MessageData.csv
-assignment_4/MsgData.csv
-assignment_4/MsgData.json
-assignment_4/SlackData.json
-assignment_4/TieuChiDanhGia.xlsx
-assignment_4/UserData.json
-assignment_4/~$TieuChiDanhGia.xlsx
+data/datacracy_slack
+.vscode

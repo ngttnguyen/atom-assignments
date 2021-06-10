@@ -5,7 +5,6 @@ pandas_profiling
 streamlit_pandas_profiling
 json5==0.9.5
 requests
-os
 re
 datetime
 matplotlib

@@ -314,74 +314,27 @@ def main():
         
         sns.distplot(a = report_df[i], label = i, kde = False, ax = subplot)
 
-    st.pyplot(fig)        
-    
-    # Histogram by group
-    # numerical = [ 'submit_cnt', 'review_cnt', 'reviewed_rate', 'word_count', 
-    #         'submit_weekday', 'submit_hour'] 
-    # categorical = ['user_id', 'submit_name', 'DataCracy_role']
-    
-    # groups = user_df[user_df.DataCracy_role.str.contains('Learner').fillna(False)]['DataCracy_role'].unique().tolist()
-        
-       
-    # st.markdown('## Distribution of numerical variables by learner group:')
-    # histo_groupcols = st.multiselect('Columns', numerical, numerical)
-    # is_grouped = st.checkbox("Histogram by Learner Group", value = True)
-    
-    # fig = plt.figure(figsize=(4,3))
-    #     #plt.xticks(np.arange(0, 2500, step = 200))  # Set label locations.      
-        
-    # for group in groups:
-    #     data = report_df[report_df['DataCracy_role'] == group]['submit_cnt']
-    #     sns.distplot(a = data, label = group, kde = False)
-        
-    # plt.title('Distribution of numerical variables by learner group')    
-    # plt.legend()
-    # st.pyplot(fig)
-        
-    
-    
-   
-    
-    
-
-def main1():
-     
-    st.title('DataCracy Slack report')
-    st.markdown('''
-    Tiến độ thực hiện công việc của phase Atom
-    #Ref: [Data Apps with Python Streamlit](https://towardsdatascience.com/data-apps-with-pythons-streamlit-b14aaca7d083)''')
-    
-    # Describe report_df
-    summary(report_df , nrows = 5)
-    
-    # Visualization
-    st.write('Visualization:')
-    numerical = [ 'submit_cnt', 'review_cnt', 'reviewed_rate', 'word_count', 
-            'submit_weekday', 'submit_hour'] 
-    categorical = ['user_id', 'submit_name', 'DataCracy_role']
-    # distribution
-    st.sidebar.markdown('## The report of learner')
-    user_id = st.sidebar.selectbox('Select learner:',user_df['user_id'], index = 1, 
-                                   format_func = (lambda x: user_df[user_df.user_id == x]['name']) )
-    
-    # user_id = st.sidebar.text_input("Nhập Mã Số Người Dùng", 'U01xxxx')
-    fig = visual_numerical(report_data = report_df['submit_cnt'], fig_title = "Histogram for submit_cnt" ,fig_label ="submission count")
     st.pyplot(fig)
- 
-    # fig, ax = plt.subplots(2, 3, figsize=(20, 12))
-    # for i, subplot in zip(numerical, ax.flatten()):
-           
-    #     sns.distplot(a = report_df[i], label = i, kde = False, ax = subplot)
-        
-    # st.pyplot(fig)
-    # fig = plt.figure(figsize = (6,3))
-    # sns.distplot(a = report_df['submit_cnt'], label="submission count", kde = False)
-    # plt.title("Histogram for submit_cnt")
-    # #plt.xticks(np.arange(0, 2500, step = 200))  # Set label locations.      
-    # plt.legend()
-    # st.pyplot(fig)
     
+    # Histogram of weekday:
+    weekdays = ("Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday")
+    x = [i for i in range(0,7)]
+
+    fig = plt.figure(figsize = (5,1))
+    sns.distplot(a = report_df['submit_weekday'], label="submit_weekday", kde = False)
+    plt.title("Histogram for submit_weekday")
+    plt.xticks(x, weekdays,rotation=45)
+    plt.legend()
+    st.pyplot(fig)
+    
+    # Discussion in groups
+    word_counts = report_df.groupby('DataCracy_role')['word_count'].mean()
+    fig = plt.figure(figsize=(5,1))
+    plt.title("Average number of discuss word count between learner groups")
+    sns.barplot(x=word_counts.index, y=word_counts.values )
+    st.pyplot(fig)
+    
+        
     
 main()
 

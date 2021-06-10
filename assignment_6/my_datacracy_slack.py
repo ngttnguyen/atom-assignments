@@ -5,8 +5,8 @@
 import streamlit as st
 import json
 import requests
-import sys
-import os
+# import sys
+# import os
 import pandas as pd
 import numpy as np
 import re
@@ -320,7 +320,7 @@ def main():
     weekdays = ("Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday")
     x = [i for i in range(0,7)]
 
-    fig = plt.figure(figsize = (5,1))
+    fig = plt.figure(figsize = (5,2))
     sns.distplot(a = report_df['submit_weekday'], label="submit_weekday", kde = False)
     plt.title("Histogram for submit_weekday")
     plt.xticks(x, weekdays,rotation=45)
@@ -329,7 +329,7 @@ def main():
     
     # Discussion in groups
     word_counts = report_df.groupby('DataCracy_role')['word_count'].mean()
-    fig = plt.figure(figsize=(5,1))
+    fig = plt.figure(figsize=(5,2))
     plt.title("Average number of discuss word count between learner groups")
     sns.barplot(x=word_counts.index, y=word_counts.values )
     st.pyplot(fig)

@@ -196,11 +196,11 @@ def get_report(p_msg_df, user_id):
     
     return (filter_report_df)
     
-def get_Atom_report():
+def get_Atom_report(msg_df, user_df, channel_df):
     # Table data
-    user_df = load_users_df()
-    channel_df = load_channel_df()
-    msg_df = load_msg_dict(user_df,channel_df)
+    # user_df = load_users_df()
+    # channel_df = load_channel_df()
+    # msg_df = load_msg_dict(user_df,channel_df)
     
     # processing data
     p_msg_df = process_msg_data(msg_df, user_df, channel_df)
@@ -228,11 +228,11 @@ def get_Atom_report():
 
 
 # Function to explore the data
-def summary(df, nrows):
+def summary(df, nrows = 5):
 
   # DATA
-  st.write('Data:')
-  st.write(df.head(nrows))
+  #st.write('Data:')
+  #st.write(df.head(nrows))
   # SUMMARY
   df_types = pd.DataFrame(df.dtypes, columns=['Data Type'])
   numerical_cols = df_types[~df_types['Data Type'].isin(['object',
@@ -248,34 +248,92 @@ def summary(df, nrows):
   df_types['q90'] = df[numerical_cols].quantile(0.90)
   st.write('Summary:')
   st.write(df_types)
+    
+user_df = load_users_df()
+channel_df = load_channel_df()
+msg_df = load_msg_dict(user_df,channel_df)
+##Get full report
+report_df = get_Atom_report(msg_df, user_df, channel_df)
 
+def display_learner_report(user_id):
+    st.markdown('The report of learner')
+    df = report_df[report_df.user_id == user_id]
+    st.write(df)
+    
+def display_top_learner_report(report_data, nrows = 5):
+
+    st.markdown('Top 5 learners ordered by number of submissions and review count:')
+    st.write(report_df.sort_values(['submit_cnt','review_cnt'],ascending=False).head(nrows))
+      
+def visual_numerical(report_data,fig_title, fig_label):
+    fig = plt.figure(figsize = (6,3))
+    sns.distplot(a = report_data, label = fig_label, kde = False)
+    plt.title(fig_title)
+    #plt.xticks(np.arange(0, 2500, step = 200))  # Set label locations.      
+    plt.legend()
+    #return(fig)
+    st.pyplot(fig)
 
 
 def main():
+    st.title('DataCracy Slack report') 
+    
+    # Summary report
+    is_display_summary = st.sidebar.checkbox("Display summary of report", value = True)
+    if is_display_summary:
+        summary(report_df)
+    
+    # Learner Report
+    learner_option = user_df[user_df.DataCracy_role.str.contains('Learner').fillna(False) & (user_df.is_bot == False)]['user_id'].values
+    learner_option = np.append('top_5',learner_option)
+    option_id = st.sidebar.selectbox('Select learner:',options = learner_option, index = 0,
+                                   format_func = (lambda x: user_df[user_df.user_id == x]['real_name'].values[0] 
+                                                  if len(user_df[user_df.user_id == x]['real_name'])>0 else ' Top 5 learners'))
+    if option_id == learner_option[0]:
+        display_top_learner_report(report_df, nrows = 5)
+    else:
+        display_learner_report(option_id)
+        
+    # Histogram
+    numerical = [ 'submit_cnt', 'review_cnt', 'reviewed_rate', 'word_count', 
+            'submit_weekday', 'submit_hour'] 
+    categorical = ['user_id', 'submit_name', 'DataCracy_role']
+    
+    
+   
+    
+    
+
+def main1():
+     
     st.title('DataCracy Slack report')
     st.markdown('''
     Tiến độ thực hiện công việc của phase Atom
-    Ref: [Data Apps with Python Streamlit](https://towardsdatascience.com/data-apps-with-pythons-streamlit-b14aaca7d083)''')
+    #Ref: [Data Apps with Python Streamlit](https://towardsdatascience.com/data-apps-with-pythons-streamlit-b14aaca7d083)''')
     
-    #Get full report
-    report_df = get_Atom_report()
     # Describe report_df
     summary(report_df , nrows = 5)
     
     # Visualization
     st.write('Visualization:')
-    st.write('Histogram:')
     numerical = [ 'submit_cnt', 'review_cnt', 'reviewed_rate', 'word_count', 
             'submit_weekday', 'submit_hour'] 
     categorical = ['user_id', 'submit_name', 'DataCracy_role']
     # distribution
- 
-    fig, ax = plt.subplots(2, 3, figsize=(20, 12))
-    for i, subplot in zip(numerical, ax.flatten()):
-           
-        sns.distplot(a = report_df[i], label = i, kde = False, ax = subplot)
-        
+    st.sidebar.markdown('## The report of learner')
+    user_id = st.sidebar.selectbox('Select learner:',user_df['user_id'], index = 1, 
+                                   format_func = (lambda x: user_df[user_df.user_id == x]['name']) )
+    
+    # user_id = st.sidebar.text_input("Nhập Mã Số Người Dùng", 'U01xxxx')
+    fig = visual_numerical(report_data = report_df['submit_cnt'], fig_title = "Histogram for submit_cnt" ,fig_label ="submission count")
     st.pyplot(fig)
+ 
+    # fig, ax = plt.subplots(2, 3, figsize=(20, 12))
+    # for i, subplot in zip(numerical, ax.flatten()):
+           
+    #     sns.distplot(a = report_df[i], label = i, kde = False, ax = subplot)
+        
+    # st.pyplot(fig)
     # fig = plt.figure(figsize = (6,3))
     # sns.distplot(a = report_df['submit_cnt'], label="submission count", kde = False)
     # plt.title("Histogram for submit_cnt")

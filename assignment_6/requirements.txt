@@ -3,7 +3,7 @@ numpy
 streamlit
 pandas_profiling
 streamlit_pandas_profiling
-json
+json5==0.9.5
 requests
 sys
 os

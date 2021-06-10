@@ -246,7 +246,7 @@ def summary(df, nrows = 5):
   df_types['q25'] = df[numerical_cols].quantile(0.25)
   df_types['q75'] = df[numerical_cols].quantile(0.75)
   df_types['q90'] = df[numerical_cols].quantile(0.90)
-  st.write('Summary:')
+  #st.write('Summary:')
   st.write(df_types)
     
 user_df = load_users_df()
@@ -256,7 +256,7 @@ msg_df = load_msg_dict(user_df,channel_df)
 report_df = get_Atom_report(msg_df, user_df, channel_df)
 
 def display_learner_report(user_id):
-    st.markdown('The report of learner')
+    #st.markdown('## The report of learner')
     df = report_df[report_df.user_id == user_id]
     st.write(df)
     
@@ -264,14 +264,17 @@ def display_top_learner_report(report_data, nrows = 5):
 
     st.markdown('Top 5 learners ordered by number of submissions and review count:')
     st.write(report_df.sort_values(['submit_cnt','review_cnt'],ascending=False).head(nrows))
-      
-def visual_numerical(report_data,fig_title, fig_label):
-    fig = plt.figure(figsize = (6,3))
+    
+def setting_sns():
+    sns.set(style='white')                                                                                                                                                                                                                                                                            
+    
+def histo_numerical(report_data,fig_title, fig_label):
+    
+    fig = plt.figure(figsize=(2,2))
     sns.distplot(a = report_data, label = fig_label, kde = False)
     plt.title(fig_title)
     #plt.xticks(np.arange(0, 2500, step = 200))  # Set label locations.      
     plt.legend()
-    #return(fig)
     st.pyplot(fig)
 
 
@@ -279,14 +282,16 @@ def main():
     st.title('DataCracy Slack report') 
     
     # Summary report
-    is_display_summary = st.sidebar.checkbox("Display summary of report", value = True)
+    # is_display_summary = st.sidebar.checkbox("Display summary of report", value = True)
+    is_display_summary = st.checkbox("Display summary of report", value = True)
     if is_display_summary:
         summary(report_df)
     
     # Learner Report
+    st.markdown('## View Report Detail')
     learner_option = user_df[user_df.DataCracy_role.str.contains('Learner').fillna(False) & (user_df.is_bot == False)]['user_id'].values
     learner_option = np.append('top_5',learner_option)
-    option_id = st.sidebar.selectbox('Select learner:',options = learner_option, index = 0,
+    option_id = st.selectbox('Select option:',options = learner_option, index = 0,
                                    format_func = (lambda x: user_df[user_df.user_id == x]['real_name'].values[0] 
                                                   if len(user_df[user_df.user_id == x]['real_name'])>0 else ' Top 5 learners'))
     if option_id == learner_option[0]:
@@ -298,6 +303,42 @@ def main():
     numerical = [ 'submit_cnt', 'review_cnt', 'reviewed_rate', 'word_count', 
             'submit_weekday', 'submit_hour'] 
     categorical = ['user_id', 'submit_name', 'DataCracy_role']
+    
+    st.markdown('## Distribution of numerical variables:')
+    histo_cols = st.multiselect('Columns', numerical, numerical)
+       
+    setting_sns()
+    row = len(histo_cols)
+    fig, ax = plt.subplots(2, 3, figsize=(20, 12))
+    for i, subplot in zip(histo_cols, ax.flatten()):
+        
+        sns.distplot(a = report_df[i], label = i, kde = False, ax = subplot)
+
+    st.pyplot(fig)        
+    
+    # Histogram by group
+    # numerical = [ 'submit_cnt', 'review_cnt', 'reviewed_rate', 'word_count', 
+    #         'submit_weekday', 'submit_hour'] 
+    # categorical = ['user_id', 'submit_name', 'DataCracy_role']
+    
+    # groups = user_df[user_df.DataCracy_role.str.contains('Learner').fillna(False)]['DataCracy_role'].unique().tolist()
+        
+       
+    # st.markdown('## Distribution of numerical variables by learner group:')
+    # histo_groupcols = st.multiselect('Columns', numerical, numerical)
+    # is_grouped = st.checkbox("Histogram by Learner Group", value = True)
+    
+    # fig = plt.figure(figsize=(4,3))
+    #     #plt.xticks(np.arange(0, 2500, step = 200))  # Set label locations.      
+        
+    # for group in groups:
+    #     data = report_df[report_df['DataCracy_role'] == group]['submit_cnt']
+    #     sns.distplot(a = data, label = group, kde = False)
+        
+    # plt.title('Distribution of numerical variables by learner group')    
+    # plt.legend()
+    # st.pyplot(fig)
+        
     
     
    

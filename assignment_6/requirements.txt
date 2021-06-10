@@ -5,7 +5,7 @@ pandas_profiling
 streamlit_pandas_profiling
 json5==0.9.5
 requests
-re
+re==3.8.10
 datetime
 matplotlib
 seaborn

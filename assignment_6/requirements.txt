@@ -8,4 +8,4 @@ requests
 datetime
 matplotlib
 seaborn
-re
+re==2.2.1

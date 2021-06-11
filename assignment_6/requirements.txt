@@ -1,7 +1,6 @@
 pandas
 numpy
 streamlit
-re>=2.2.0
 json5==0.9.5
 requests
 datetime

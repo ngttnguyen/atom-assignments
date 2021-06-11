@@ -1,3 +1,4 @@
+pip install - - upgrade pip
 pandas
 numpy
 streamlit
@@ -8,4 +9,4 @@ requests
 datetime
 matplotlib
 seaborn
-re==2.2.1
+re2.2.1

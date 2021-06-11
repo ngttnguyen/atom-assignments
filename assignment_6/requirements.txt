@@ -1,8 +1,6 @@
 pandas
 numpy
 streamlit
-pandas_profiling
-streamlit_pandas_profiling
 re==2.2.1
 json5==0.9.5
 requests
